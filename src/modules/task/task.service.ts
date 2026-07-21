@@ -40,7 +40,6 @@ export const updateTask = async (
 
   if (!task) {
     throw new Error("Task not found or unauthorized");
-    
   }
 
   Object.assign(task, payload);
