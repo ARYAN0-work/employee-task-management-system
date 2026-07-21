@@ -16,8 +16,31 @@ export const createTask = async (payload: ITask) => {
   return await Task.create(payload);
 };
 
-export const getTasks = async () => {
-  return await Task.find()
+export const getTasks = async (query: {
+  status?: string;
+  priority?: string;
+  assignedTo?: string;
+  createdBy?: string;
+}) => {
+  const filter: Record<string, unknown> = {};
+
+  if (query.status) {
+    filter.status = query.status;
+  }
+
+  if (query.priority) {
+    filter.priority = query.priority;
+  }
+
+  if (query.assignedTo) {
+    filter.assignedTo = query.assignedTo;
+  }
+
+  if (query.createdBy) {
+    filter.createdBy = query.createdBy;
+  }
+
+  return await Task.find(filter)
     .populate("assignedTo")
     .populate("createdBy");
 };

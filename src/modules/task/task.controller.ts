@@ -11,7 +11,12 @@ export const createTask = async (req: Request, res: Response) => {
 };
 
 export const getTasks = async (_req: Request, res: Response) => {
-  const tasks = await taskService.getTasks();
+  const tasks = await taskService.getTasks({
+    status: _req.query.status as string,
+    priority: _req.query.priority as string,
+    assignedTo: _req.query.assignedTo as string,
+    createdBy: _req.query.createdBy as string,
+  });
 
   res.status(200).json({
     success: true,
