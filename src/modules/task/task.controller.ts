@@ -29,9 +29,12 @@ export const getTaskById = async (req: Request, res: Response) => {
 };
 
 export const updateTask = async (req: Request, res: Response) => {
+  const { managerId, ...payload } = req.body;
+
   const task = await taskService.updateTask(
     req.params.id as string,
-    req.body
+    managerId,
+    payload
   );
 
   res.status(200).json({
@@ -41,7 +44,12 @@ export const updateTask = async (req: Request, res: Response) => {
 };
 
 export const deleteTask = async (req: Request, res: Response) => {
-  await taskService.deleteTask(req.params.id as string);
+  const { managerId } = req.body;
+
+  await taskService.deleteTask(
+    req.params.id as string,
+    managerId
+  );
 
   res.status(200).json({
     success: true,
