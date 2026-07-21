@@ -62,3 +62,22 @@ export const deleteTask = async (
 
   return task;
 };
+
+export const updateTaskStatus = async (
+  taskId: string,
+  employeeId: string,
+  status: ITask["status"]
+) => {
+  const task = await Task.findOne({
+    _id: taskId,
+    assignedTo: employeeId,
+  });
+
+  if (!task) {
+    throw new Error("Task not found or unauthorized");
+  }
+
+  task.status = status;
+
+  return await task.save();
+};

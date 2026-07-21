@@ -13,4 +13,6 @@ router.patch("/:id", taskController.updateTask);
 
 router.delete("/:id", taskController.deleteTask);
 
+router.patch("/:id/status", taskController.updateTaskStatus);
+
 export default router;

@@ -56,3 +56,21 @@ export const deleteTask = async (req: Request, res: Response) => {
     message: "Task deleted successfully",
   });
 };
+
+export const updateTaskStatus = async (
+  req: Request,
+  res: Response
+) => {
+  const { employeeId, status } = req.body;
+
+  const task = await taskService.updateTaskStatus(
+    req.params.id as string,
+    employeeId,
+    status
+  );
+
+  res.status(200).json({
+    success: true,
+    data: task,
+  });
+};
