@@ -1,4 +1,4 @@
-import { IUser, User } from "./user.model";
+import { IUser, User } from "./user.model"
 
 export const createUser = async (payload: IUser) => {
   return await User.create(payload);
