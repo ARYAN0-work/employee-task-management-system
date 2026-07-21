@@ -1,11 +1,13 @@
 import  express  from "express";
-import healthRouter from "./routes/health.routes.js";
+import router from "./routes/health.routes.js";
+import { notFound } from "./middleware/notFound.js";
 
 const app = express();
 
 app.use(express.json());
 
-app.use("/health",healthRouter)
+app.use(router);
+app.use(notFound);
 
 export default app;
 
