@@ -1,5 +1,5 @@
-import { IUser, User } from "./user.model";
-import { AppError } from "../../errors/AppError";
+import { IUser, User } from "./user.model.js";
+import { AppError } from "../../errors/AppError.js";
 
 export const createUser = async (payload: IUser) => {
   const existingUser = await User.findOne({

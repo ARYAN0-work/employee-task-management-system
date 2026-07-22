@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import * as taskService from "./task.service";
+import * as taskService from "./task.service.js";
 
 export const createTask = async (req: Request, res: Response) => {
   const task = await taskService.createTask(req.body);

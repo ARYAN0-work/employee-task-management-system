@@ -1,6 +1,6 @@
-import { ITask, Task } from "./task.model";
-import { User } from "../user/user.model";
-import { AppError } from "../../errors/AppError";
+import { ITask, Task } from "./task.model.js";
+import { User } from "../user/user.model.js";
+import { AppError } from "../../errors/AppError.js";
 
 export const createTask = async (payload: ITask) => {
   const employee = await User.findById(payload.assignedTo);
