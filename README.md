@@ -6,6 +6,91 @@ The system allows managers to create and assign tasks to employees, while employ
 
 ---
 
+# 🌐 Live API
+
+## Base URL
+
+```text
+https://employee-task-management-system-9ldf.onrender.com/api/v1
+```
+
+## Health Check
+
+```text
+https://employee-task-management-system-9ldf.onrender.com/health
+```
+
+> **Note:** The Health endpoint is available outside the `/api/v1` route.
+
+---
+
+## API Endpoints
+
+### Users
+
+| Method | Endpoint     | Description                  |
+| ------ | ------------ | ---------------------------- |
+| POST   | `/users`     | Create a Manager or Employee |
+| GET    | `/users`     | Get all users                |
+| GET    | `/users/:id` | Get a user by ID             |
+| PATCH  | `/users/:id` | Update a user                |
+| DELETE | `/users/:id` | Delete a user                |
+
+---
+
+### Tasks
+
+| Method | Endpoint            | Description                                 |
+| ------ | ------------------- | ------------------------------------------- |
+| POST   | `/tasks`            | Create a task                               |
+| GET    | `/tasks`            | Get all tasks                               |
+| GET    | `/tasks/:id`        | Get a task by ID                            |
+| PATCH  | `/tasks/:id`        | Update task details (Manager only)          |
+| DELETE | `/tasks/:id`        | Delete a task                               |
+| PATCH  | `/tasks/:id/status` | Update task status (Assigned Employee only) |
+
+---
+
+### Example
+
+```http
+GET /tasks?search=backend&status=todo&priority=high&page=1&limit=10
+```
+
+---
+
+### Example Requests
+
+#### Create User
+
+```http
+POST /users
+```
+
+#### Create Task
+
+```http
+POST /tasks
+```
+
+#### Update Task
+
+```http
+PATCH /tasks/:id
+```
+
+#### Update Task Status
+
+```http
+PATCH /tasks/:id/status
+```
+
+---
+
+> **Note**
+>
+> This API is deployed on **Render's Free Tier**. The first request after a period of inactivity may take **30–60 seconds** while the server wakes up.
+
 # Features
 
 ## User Management
@@ -282,55 +367,6 @@ pnpm start
 
 ---
 
-# API Endpoints
-
-## Health
-
-| Method | Endpoint   | Description  |
-| ------ | ---------- | ------------ |
-| GET    | `/api/v1/` | Health Check |
-
----
-
-## Users
-
-| Method | Endpoint            | Description   |
-| ------ | ------------------- | ------------- |
-| POST   | `/api/v1/users`     | Create User   |
-| GET    | `/api/v1/users`     | Get All Users |
-| GET    | `/api/v1/users/:id` | Get User      |
-| PATCH  | `/api/v1/users/:id` | Update User   |
-| DELETE | `/api/v1/users/:id` | Delete User   |
-
----
-
-## Tasks
-
-| Method | Endpoint                   | Description        |
-| ------ | -------------------------- | ------------------ |
-| POST   | `/api/v1/tasks`            | Create Task        |
-| GET    | `/api/v1/tasks`            | Get All Tasks      |
-| GET    | `/api/v1/tasks/:id`        | Get Task           |
-| PATCH  | `/api/v1/tasks/:id`        | Update Task        |
-| DELETE | `/api/v1/tasks/:id`        | Delete Task        |
-| PATCH  | `/api/v1/tasks/:id/status` | Update Task Status |
-
----
-
-# Query Parameters
-
-The task listing endpoint supports:
-
-| Parameter  | Description                 |
-| ---------- | --------------------------- |
-| status     | Filter by status            |
-| priority   | Filter by priority          |
-| assignedTo | Filter by assigned employee |
-| createdBy  | Filter by manager           |
-| search     | Search title & description  |
-| page       | Page number                 |
-| limit      | Items per page              |
-
 Example:
 
 ```http
@@ -427,14 +463,6 @@ The project uses:
 - lint-staged
 
 to maintain a clean and consistent codebase.
-
----
-
-# Testing
-
-All endpoints were manually tested using **Insomnia**.
-
----
 
 # Author
 
