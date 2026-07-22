@@ -51,10 +51,7 @@ export const updateTask = async (req: Request, res: Response) => {
 export const deleteTask = async (req: Request, res: Response) => {
   const { managerId } = req.body;
 
-  await taskService.deleteTask(
-    req.params.id as string,
-    managerId
-  );
+  await taskService.deleteTask(req.params.id as string, managerId);
 
   res.status(200).json({
     success: true,
@@ -62,10 +59,7 @@ export const deleteTask = async (req: Request, res: Response) => {
   });
 };
 
-export const updateTaskStatus = async (
-  req: Request,
-  res: Response
-) => {
+export const updateTaskStatus = async (req: Request, res: Response) => {
   const { employeeId, status } = req.body;
 
   const task = await taskService.updateTaskStatus(

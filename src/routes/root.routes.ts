@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { getHealth } from "../controllers/health.controller.js";
-import userRoutes from "../modules/user/user.routes.js"
+import userRoutes from "../modules/user/user.routes.js";
 import taskRoutes from "../modules/task/task.routes.js";
 
 const router = Router();

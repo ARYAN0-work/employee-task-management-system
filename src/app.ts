@@ -1,4 +1,4 @@
-import  express  from "express";
+import express from "express";
 import router from "./routes/root.routes.js";
 import { notFound } from "./middleware/notFound.js";
 import { errorHandler } from "./middleware/errorHandler.js";
@@ -9,7 +9,6 @@ app.use(express.json());
 
 app.use(router);
 app.use(notFound);
-app.use(errorHandler)
+app.use(errorHandler);
 
 export default app;
-

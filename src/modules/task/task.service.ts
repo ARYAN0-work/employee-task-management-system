@@ -3,7 +3,6 @@ import { User } from "../user/user.model";
 import { AppError } from "../../errors/AppError";
 
 export const createTask = async (payload: ITask) => {
-  
   const employee = await User.findById(payload.assignedTo);
 
   if (!employee) {
@@ -47,23 +46,23 @@ export const getTasks = async (query: {
   if (query.createdBy) {
     filter.createdBy = query.createdBy;
   }
-  
+
   if (query.search) {
-  filter.$or = [
-    {
-      title: {
-        $regex: query.search,
-        $options: "i",
+    filter.$or = [
+      {
+        title: {
+          $regex: query.search,
+          $options: "i",
+        },
       },
-    },
-    {
-      description: {
-        $regex: query.search,
-        $options: "i",
+      {
+        description: {
+          $regex: query.search,
+          $options: "i",
+        },
       },
-    },
-  ];
-}
+    ];
+  }
 
   const total = await Task.countDocuments(filter);
 
@@ -72,7 +71,7 @@ export const getTasks = async (query: {
     .populate("createdBy")
     .skip(skip)
     .limit(limit);
-  
+
   return {
     tasks,
     total,
@@ -83,9 +82,7 @@ export const getTasks = async (query: {
 };
 
 export const getTaskById = async (id: string) => {
-  return await Task.findById(id)
-    .populate("assignedTo")
-    .populate("createdBy");
+  return await Task.findById(id).populate("assignedTo").populate("createdBy");
 };
 
 export const updateTask = async (
@@ -107,17 +104,14 @@ export const updateTask = async (
   return await task.save();
 };
 
-export const deleteTask = async (
-  taskId: string,
-  managerId: string
-) => {
+export const deleteTask = async (taskId: string, managerId: string) => {
   const task = await Task.findOneAndDelete({
     _id: taskId,
     createdBy: managerId,
   });
 
   if (!task) {
-    throw new AppError(403,"Task not found or unauthorized");
+    throw new AppError(403, "Task not found or unauthorized");
   }
 
   return task;
@@ -134,7 +128,7 @@ export const updateTaskStatus = async (
   });
 
   if (!task) {
-    throw new AppError(403,"Task not found or unauthorized");
+    throw new AppError(403, "Task not found or unauthorized");
   }
 
   task.status = status;

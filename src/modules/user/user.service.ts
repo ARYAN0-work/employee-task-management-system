@@ -1,4 +1,4 @@
-import { IUser, User } from "./user.model"
+import { IUser, User } from "./user.model";
 import { AppError } from "../../errors/AppError";
 
 export const createUser = async (payload: IUser) => {
