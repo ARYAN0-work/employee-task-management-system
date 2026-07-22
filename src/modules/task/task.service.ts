@@ -23,8 +23,14 @@ export const getTasks = async (query: {
   assignedTo?: string;
   createdBy?: string;
   search?: string;
+  page?: string;
+  limit?: string;
 }) => {
   const filter: Record<string, unknown> = {};
+
+  const page = Number(query.page) || 1;
+  const limit = Number(query.limit) || 10;
+  const skip = (page - 1) * limit;
 
   if (query.status) {
     filter.status = query.status;
@@ -59,9 +65,21 @@ export const getTasks = async (query: {
   ];
 }
 
-  return await Task.find(filter)
+  const total = await Task.countDocuments(filter);
+
+  const tasks = await Task.find(filter)
     .populate("assignedTo")
-    .populate("createdBy");
+    .populate("createdBy")
+    .skip(skip)
+    .limit(limit);
+  
+  return {
+    tasks,
+    total,
+    page,
+    limit,
+    totalPages: Math.ceil(total / limit),
+  };
 };
 
 export const getTaskById = async (id: string) => {
