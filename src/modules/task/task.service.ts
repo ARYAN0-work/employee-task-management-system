@@ -22,6 +22,7 @@ export const getTasks = async (query: {
   priority?: string;
   assignedTo?: string;
   createdBy?: string;
+  search?: string;
 }) => {
   const filter: Record<string, unknown> = {};
 
@@ -40,6 +41,23 @@ export const getTasks = async (query: {
   if (query.createdBy) {
     filter.createdBy = query.createdBy;
   }
+  
+  if (query.search) {
+  filter.$or = [
+    {
+      title: {
+        $regex: query.search,
+        $options: "i",
+      },
+    },
+    {
+      description: {
+        $regex: query.search,
+        $options: "i",
+      },
+    },
+  ];
+}
 
   return await Task.find(filter)
     .populate("assignedTo")
