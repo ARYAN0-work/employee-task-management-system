@@ -224,9 +224,11 @@ src
 ## Clone Repository
 
 ```bash
-git clone https://github.com/ARYAN0-work/Behind-The-Scenes.git
 
-cd Behind-The-Scenes
+git clone https://github.com/ARYAN0-work/employee-task-management-system.git
+
+cd employee-task-management-system
+
 ```
 
 ---
