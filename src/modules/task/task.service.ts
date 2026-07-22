@@ -1,16 +1,17 @@
 import { ITask, Task } from "./task.model";
 import { User } from "../user/user.model";
+import { AppError } from "../../errors/AppError";
 
 export const createTask = async (payload: ITask) => {
   
   const employee = await User.findById(payload.assignedTo);
 
   if (!employee) {
-    throw new Error("Employee not found");
+    throw new AppError(404, "Employee not found");
   }
 
   if (employee.role !== "employee") {
-    throw new Error("Task can only be assigned to an employee");
+    throw new AppError(400, "Task can only be assigned to an employee");
   }
 
   return await Task.create(payload);
@@ -62,7 +63,7 @@ export const updateTask = async (
   });
 
   if (!task) {
-    throw new Error("Task not found or unauthorized");
+    throw new AppError(403, "Task not found or unauthorized");
   }
 
   Object.assign(task, payload);
@@ -80,7 +81,7 @@ export const deleteTask = async (
   });
 
   if (!task) {
-    throw new Error("Task not found or unauthorized");
+    throw new AppError(403,"Task not found or unauthorized");
   }
 
   return task;
@@ -97,7 +98,7 @@ export const updateTaskStatus = async (
   });
 
   if (!task) {
-    throw new Error("Task not found or unauthorized");
+    throw new AppError(403,"Task not found or unauthorized");
   }
 
   task.status = status;
